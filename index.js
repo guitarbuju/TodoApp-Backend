@@ -44,12 +44,26 @@ app.post('/main',async (req , res )=>{
 
 
 app.patch('/done/:id',async (req,res)=>{
-    let id=req.params.id
-    req.body.done=true
-    const idData= await Task.findByIdAndUpdate(id,req.body.done)
-    console.log(idData)
-    res.status(200).json(idData)
-})
+   
+    try {
+        const { id } = req.params;
+    
+        // Update the key value from false to true
+        const updatedDocument = await Task.findByIdAndUpdate(
+          id,
+          { done: true },
+          { new : true }
+         
+        );
+    
+        res.status(200).json({ message: 'Key value updated successfully.',document:updatedDocument });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'An error occurred.' });
+      }
+    })
+    
+
 
 
 
