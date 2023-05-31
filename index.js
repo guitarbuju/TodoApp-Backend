@@ -62,6 +62,21 @@ app.patch('/done/:id',async (req,res)=>{
         res.status(500).json({ message: 'An error occurred.' });
       }
     })
+
+    app.delete('/delete/:id',async (req,res)=>{
+   
+      try {
+          const { id } = req.params;
+      
+          // delete the key value 
+          const updatedDocument = await Task.findByIdAndDelete(id)
+      
+          res.status(200).json({ message: 'Key value deleted successfully.',document:updatedDocument });
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ message: 'An error occurred.' });
+        }
+      })
     
 
 

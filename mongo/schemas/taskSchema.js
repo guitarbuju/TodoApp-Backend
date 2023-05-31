@@ -4,8 +4,8 @@ const {model, Schema}=require('mongoose')
 const TaskSchema=new Schema ({
     date: {type:Date},
     task:{type:String},
-    done:{type:Boolean}
-})
+    done:{type:Boolean}, 
+},{timestamps: true})
 
 const Task=model('task',TaskSchema)
 
