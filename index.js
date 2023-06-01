@@ -63,6 +63,27 @@ app.patch('/done/:id',async (req,res)=>{
       }
     })
 
+
+    app.patch('/inprogress/:id',async (req,res)=>{
+   
+      try {
+          const { id } = req.params;
+      
+          // Update the key value from false to true
+          const updatedDocument = await Task.findByIdAndUpdate(
+            id,
+            { inprogress: true },
+            { new : true }
+           
+          );
+      
+          res.status(200).json({ message: 'Key value updated successfully.',document:updatedDocument });
+        } catch (error) {
+          console.error(error);
+          res.status(500).json({ message: 'An error occurred.' });
+        }
+      })
+      
     app.delete('/delete/:id',async (req,res)=>{
    
       try {
