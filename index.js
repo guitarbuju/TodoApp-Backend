@@ -9,11 +9,26 @@ const Task=require('./mongo/schemas/taskSchema')
 app.use(cors())
 app.use(express.json())
 
+app.get('/', async(req,res)=>{
+ const Alldata= await Task.find()
+ res.json(Alldata)
 
-app.get('/',async(req , res )=>{
+
+})
+
+
+app.get('/today',async(req , res )=>{
    
-    const AllData= await Task.find()
-    res.status(200).json(AllData)
+    const today= new Date
+    today.setHours(0,0,0,0)
+
+    const tomorrow = new Date(today)
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    tomorrow.setHours(0, 0, 0, 0)
+
+  const TodayData= await Task.find({ date: { $gte: today, $lt: tomorrow } }).sort({ date: 1 });
+
+  res.status(200).json(TodayData)
 })
 
 app.get('/:id',async(req , res )=>{
@@ -31,7 +46,8 @@ app.post('/main',async (req , res )=>{
    const data= {
     date:new Date(body.ProperDate),
     task:body.task,
-    done:body.done
+    done:body.done,
+    inProgress:body.inProgress
 
 }
     console.log(data)
@@ -72,7 +88,7 @@ app.patch('/done/:id',async (req,res)=>{
           // Update the key value from false to true
           const updatedDocument = await Task.findByIdAndUpdate(
             id,
-            { inprogress: true },
+            { inProgress: true },
             { new : true }
            
           );
