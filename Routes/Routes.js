@@ -6,20 +6,21 @@ const {jwtMiddleware}=require('../authorization')
 
 const {getAllTasks,getTodayTasks,getIdTask,postNewTask, doneTask,progressTask,deleteTask}=require('./Functions.Routes')
 
-router.get('/',jwtMiddleware,getAllTasks)
+router.get('/',getAllTasks)
 
 router.get('/today',getTodayTasks)
 
 
-router.get('/:id',jwtMiddleware,getIdTask)
+router.get('/:id',getIdTask)
 
 router.post('/main',postNewTask)
 
 
-router.patch('/done/:id',jwtMiddleware,doneTask)
+router.patch('/done/:id',doneTask)
 
-router.patch('/inProgress/:id',jwtMiddleware,progressTask)
+router.patch('/inProgress/:id',progressTask)
 
-router.delete('delete/:id',jwtMiddleware,deleteTask)
+router.delete('/delete/:id', deleteTask);
+
 
 module.exports=router
