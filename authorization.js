@@ -48,37 +48,37 @@ AuthRouter.post('/login', async (req,res)=>{
     if(!email || !password){
         return res.status(400).json({error:'Falta el email o el password'})
     }
+
+    try{
         const foundUser= await User.findOne({email:email})
         if(!foundUser){
-            res.status(400).json({error:'No aparece el email del  usuario en la BD'})
+        return res.status(400).json({error:'No aparece el email del  usuario en la BD'})
         }
-//         const foundUserPass= await User.findOne({password:password})
-      
 
-//         const storedHashedPassword =foundUserPass
+    // Compare the password entered by the user with the hashed password stored in the database
+    const isPasswordValid = foundUser.comparePassword(password);
+    if (!isPasswordValid) {
+      // Invalid password
+      return res.status(400).json({ error: 'Contraseña incorrecta' });
+    }
 
-//         // Compare the user's inputted password with the stored hashed password
-//   const passwordsMatch =  bcrypt.compare(req.body.password, storedHashedPassword);
-  
-//   if (passwordsMatch) {
-    // Passwords match, proceed with successful login
-     return res.status(200).json(
-        {
-            token:foundUser.generateJWT(),
-            user:{
-            name:foundUser.name,
-            email:foundUser.email,
-            id:foundUser.id
-         }   
+    // Password is valid, generate token and return user data
+
+        return res.status(200).json({
+            token: foundUser.generateJWT(),
+            user: {
+              name: foundUser.name,
+              email: foundUser.email,
+              id: foundUser.id,
+            },
+          });
+        } catch (error) {
+          // Handle any potential errors
+          return res.status(500).json({ error: 'Error en el servidor' });
         }
-    )
+      });
    
-  
 
-      
-       
-
-})
 
 const jwtMiddleware = (req, res, next) => {
     // Recogemos el header "Authorization". Sabemos que viene en formato "Bearer XXXXX...",
