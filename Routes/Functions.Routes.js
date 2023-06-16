@@ -49,7 +49,8 @@ const doneTask = ("/done/:id", async (req, res) => {
     // Update the key value from false to true
     const updatedDocument = await Task.findByIdAndUpdate(
       id,
-      { done: true },
+      { done: true ,
+      inProgress:false},
       { new: true }
     );
 
