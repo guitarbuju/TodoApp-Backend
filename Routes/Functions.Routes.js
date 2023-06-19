@@ -33,6 +33,7 @@ const postNewTask = ("/main", async (req, res) => {
     task: body.task,
     done: body.done,
     inProgress: body.inProgress,
+    category:body.category
   };
   console.log(data);
   const newTask = new Task(data);
