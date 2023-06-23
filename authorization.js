@@ -13,10 +13,10 @@ console.log(body)
 
 const email=req.body.email
 
-if(!email){ return res.status(400).json({error:'No aparece el dato email'})}
+if(!email){ return res.status(400).json({error:'No email'})}
 
 const existingUser= await User.findOne({email:email})
-if(existingUser){return res.status(400).json({error:'El usuario ya esta registrado en BD'})}
+if(existingUser){return res.status(400).json({error:'User already registered'})}
 else{
     const newUser=new User({
         name:body.name,
@@ -35,7 +35,7 @@ else{
              }   
             })
     }else{
-        return res.status(400).json({error:'Error al generar nuevo usuario'})
+        return res.status(400).json({error:'Error on generating new user'})
     }
 }
 
@@ -46,20 +46,20 @@ AuthRouter.post('/login', async (req,res)=>{
     const {email, password}=req.body
 
     if(!email || !password){
-        return res.status(400).json({error:'Falta el email o el password'})
+        return res.status(400).json({error:'Email or Password missing'})
     }
 
     try{
         const foundUser= await User.findOne({email:email})
         if(!foundUser){
-        return res.status(400).json({error:'No aparece el email del  usuario en la BD'})
+        return res.status(400).json({error:'Invalid Email please try again'})
         }
 
     // Compare the password entered by the user with the hashed password stored in the database
     const isPasswordValid = foundUser.comparePassword(password);
     if (!isPasswordValid) {
       // Invalid password
-      return res.status(400).json({ error: 'Contraseña incorrecta' });
+      return res.status(400).json({ error: 'Invalid Password please try again' });
     }
 
     // Password is valid, generate token and return user data
@@ -74,7 +74,7 @@ AuthRouter.post('/login', async (req,res)=>{
           });
         } catch (error) {
           // Handle any potential errors
-          return res.status(500).json({ error: 'Error en el servidor' });
+          return res.status(500).json({ error: 'Server Error' });
         }
       });
    
