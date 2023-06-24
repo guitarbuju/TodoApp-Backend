@@ -36,7 +36,8 @@ AuthRouter.post("/register", async (req, res) => {
         from: "gerardoamadrid@gmail.com", // Change to your verified sender
         subject: "Welcome to ToDo App List",
         text: "Welcome",
-        html: `<strong> Hello,  ${req.body.name} we are thrilled to have onboard now get ready to really get things done...</strong>`,
+        html: `<strong> Hello,  ${req.body.name} we are thrilled to have onboard 
+        now get ready to really get things done...</strong>`,
       };
       sgMail
         .send(msg)
