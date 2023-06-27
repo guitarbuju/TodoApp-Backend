@@ -1,12 +1,14 @@
-version: '3'
+# version: '3'
 
-services:
-  mongo:
-    image: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: gerardo
-      MONGO_INITDB_ROOT_PASSWORD: 2999
-      MONGO_DATABASE_NAME: TodoApp
-    ports:
-      - "27022:27017"
+# services:
+#   mongo:
+#     image: mongo
+#     restart: always
+#     environment:
+#       MONGO_INITDB_ROOT_USERNAME: gerardo
+#       MONGO_INITDB_ROOT_PASSWORD: 2999
+#       MONGO_DATABASE_NAME: TodoApp
+#     ports:
+#       - "27022:27017"
+
+      
