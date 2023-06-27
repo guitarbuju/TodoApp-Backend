@@ -6,7 +6,7 @@ const {jwtMiddleware}=require('../authorization')
 
 const {test,getAllTasks,getTodayTasks,getIdTask,postNewTask, doneTask,progressTask,deleteTask}=require('./Functions.Routes')
 
-router.get('/',getAllTasks,test)
+router.get('/',test)
 router.get('/:user',jwtMiddleware,getAllTasks)
 
 router.get('/today/:user',jwtMiddleware,getTodayTasks)
