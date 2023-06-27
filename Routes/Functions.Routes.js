@@ -1,6 +1,13 @@
 const Task = require("../mongo/schemas/taskSchema");
 
+const test = ("/", async (req, res) => {
+ 
 
+
+  
+  const Alldata = await Task.find();
+  res.json(Alldata);
+});
 
 const getAllTasks = ("/:user", async (req, res) => {
   const userId = req.params.user;
@@ -129,4 +136,4 @@ async (req, res) => {
 
    
 
-module.exports = {getAllTasks,getTodayTasks,getIdTask,postNewTask, doneTask,progressTask,deleteTask}
+module.exports = {test,getAllTasks,getTodayTasks,getIdTask,postNewTask, doneTask,progressTask,deleteTask}
