@@ -1,7 +1,10 @@
-
+const dotenv = require('dotenv').config()
 const mongoose= require('mongoose')
 
-mongoose.connect('mongodb://gerardo:2999@localhost:27022/TodoApp?authSource=admin')
+
+
+
+mongoose.connect(process.env.MONGO_URL)
 
 const mongo=mongoose.connection
 
