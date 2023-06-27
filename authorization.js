@@ -7,7 +7,7 @@ const JWT = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const sgMail = require("@sendgrid/mail");
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 AuthRouter.post("/register", async (req, res) => {
   const body = req.body;
@@ -31,22 +31,22 @@ AuthRouter.post("/register", async (req, res) => {
 
     const savedUser = await newUser.save();
     if (savedUser) {
-      const msg = {
-        to: email,
-        from: "gerardoamadrid@gmail.com", // Change to your verified sender
-        subject: "Welcome to ToDo App List",
-        text: "Welcome",
-        html: `<strong> Hello,  ${req.body.name} we are thrilled to have you onboard 
-        now get ready to really get things done...</strong>`,
-      };
-      sgMail
-        .send(msg)
-        .then(() => {
-          console.log("Email sent");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      // const msg = {
+      //   to: email,
+      //   from: "gerardoamadrid@gmail.com", // Change to your verified sender
+      //   subject: "Welcome to ToDo App List",
+      //   text: "Welcome",
+      //   html: `<strong> Hello,  ${req.body.name} we are thrilled to have you onboard 
+      //   now get ready to really get things done...</strong>`,
+      // };
+      // sgMail
+      //   .send(msg)
+      //   .then(() => {
+      //     console.log("Email sent");
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
 
       return res.status(200).json({
         token: savedUser.generateJWT(),
