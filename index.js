@@ -8,10 +8,7 @@ const {AuthRouter} = require('./authorization')
 const router = require('./Routes/Routes')
 
 
-app.use(cors({
-    origin: 'https://cheery-gecko-916fae.netlify.app',
-  
-  }));
+app.use(cors())
 app.use(express.json())
 
 app.use(router)
