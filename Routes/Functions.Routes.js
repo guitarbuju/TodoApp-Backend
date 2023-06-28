@@ -55,9 +55,9 @@ const postNewTask = ("/main/:user", async (req, res) => {
     user: userId, 
   };
   console.log(data);
-  const newTask = new Task(data).exec();
+  const newTask = new Task(data);
   console.log(newTask);
-  await newTask.save();
+  await newTask.save().exec();
 
   res.json(newTask);
 });
