@@ -5,7 +5,7 @@ const test = ("/", async (req, res) => {
 
 
   
-  const Alldata = await Task.find().exec();
+  const Alldata = await Task.find();
   res.json(Alldata);
 });
 
@@ -14,7 +14,7 @@ const getAllTasks = ("/:user", async (req, res) => {
 
 
   
-  const Alldata = await Task.find({user:userId}).exec();
+  const Alldata = await Task.find({user:userId});
   res.json(Alldata);
 });
 
@@ -30,14 +30,14 @@ const getTodayTasks = ("/today/:user", async (req, res) => {
   const TodayData = await Task.find({
     date: { $gte: today, $lt: tomorrow },
     user: userId, 
-  }).sort({ date: 1 }).exec();
+  }).sort({ date: 1 });
 
   res.status(200).json(TodayData);
 });
 
 const getIdTask = ("/:id", async (req, res) => {
   const { userId } = req.body;
-  const idData = await Task.findOne({ _id: req.params.id, user: userId }).exec();
+  const idData = await Task.findOne({ _id: req.params.id, user: userId });
   res.status(200).json(idData);
 });
 
@@ -71,7 +71,7 @@ const doneTask = ("/done/:id/:user", async (req, res) => {
       { _id: id, user: user }, // Find the task by ID and user
       { done: true, inProgress: false },
       { new: true }
-    ).exec();
+    );
     res
       .status(200)
       .json({
@@ -93,7 +93,7 @@ const progressTask = ("/inprogress/:id/:user", async (req, res) => {
       { _id: id, user: user }, // Find the task by ID and user
       { inProgress: true },
       { new: true }
-    ).exec();
+    );
     
 
     res
@@ -115,7 +115,7 @@ async (req, res) => {
      // Assuming the authenticated user's ID is available in req.user
 
     // Delete the task for the current user
-    const deletedTask = await Task.findOneAndDelete({ _id: id, user: user }).exec();
+    const deletedTask = await Task.findOneAndDelete({ _id: id, user: user });
 
     res.status(200).json({
       message: "Task deleted successfully.",
