@@ -10,7 +10,7 @@ const router = require('./Routes/Routes')
 
 app.use(cors({
     origin: 'https://cheery-gecko-916fae.netlify.app',
-    // Add other CORS options if necessary
+  
   }));
 app.use(express.json())
 
